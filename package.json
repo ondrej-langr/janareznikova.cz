@@ -21,8 +21,8 @@
     }
   ],
   "scripts": {
-    "dev": "yarn env:dev && export APP_ENV=development && vite",
-    "build": "yarn env:prod && export APP_ENV=production && tsc && vite build",
+    "dev": "yarn env:dev && cross-env APP_ENV=development vite",
+    "build": "yarn env:prod && cross-env APP_ENV=production vite build",
     "env:dev": "replace-in-files --string='production' --replacement='development' ./.env",
     "env:prod": "replace-in-files --string='development' --replacement='production' ./.env"
   },
@@ -42,6 +42,7 @@
     "typescript": "^4.1.2",
     "vite": "^2.3.4",
     "vite-plugin-live-reload": "^2.1.0",
+    "cross-env": "^7.0.3",
     "vue-tsc": "^0.0.24"
   },
   "dependencies": {
