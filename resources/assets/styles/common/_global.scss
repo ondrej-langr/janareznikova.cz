@@ -1,0 +1,49 @@
+/* stylelint-disable */
+:root {
+  --background: ghostwhite;
+  --text-color: #222222;
+  // @media (prefers-color-scheme: dark) {
+  //   --background: #2e2e2e;
+  //   --text-color: ghostwhite;
+  // }
+}
+/* stylelint-enable */
+body,
+html {
+  font-size: 16px;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  background: var(--background);
+  color: var(--text-color);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  word-break: break-word;
+}
+
+img {
+  max-width: 100%;
+}
+
+main,
+footer {
+  padding: 0 1rem;
+}
+
+.lazy {
+  transition: opacity 500ms ease-in-out;
+  max-width: 100%;
+  opacity: 0;
+}
+
+.lazy.b-loaded,
+.lazy.b-error {
+  transition: opacity 500ms ease-in-out;
+  opacity: 1;
+}

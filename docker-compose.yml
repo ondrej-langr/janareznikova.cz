@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  wordpress:
+    image: wordpress:latest
+    volumes:
+      - ./:/var/www/html/wp-content/themes/janareznikova.cz
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: example
+      WORDPRESS_DB_PASSWORD: example
+      WORDPRESS_DB_NAME: example
+    ports:
+      - "8080:80"
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: example
+      MYSQL_USER: example
+      MYSQL_PASSWORD: example
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
