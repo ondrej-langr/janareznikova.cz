@@ -1,0 +1,31 @@
+
+msgid ""
+msgstr ""
+
+msgid "Latest Posts"
+msgstr ""
+
+msgid "Continued"
+msgstr ""
+
+msgid "Primary Navigation"
+msgstr ""
+
+msgid "Sage &rsaquo; Error"
+msgstr ""
+
+msgid "Sorry, but the page you were trying to view was not found."
+msgstr ""
+
+msgid "Sorry, no results were found."
+msgstr ""
+
+msgid "&larr; Older comments"
+msgstr ""
+
+msgid "Pages:"
+msgstr ""
+
+msgid "By"
+msgstr ""
+

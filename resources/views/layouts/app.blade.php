@@ -4,7 +4,7 @@
   <body @php body_class() @endphp>
     @php do_action('get_header') @endphp
     @include('partials.header')
-      <main class="main">
+      <main class="px-0">
         @yield('content')
       </main>
 

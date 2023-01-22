@@ -89,18 +89,25 @@ add_action('after_setup_theme', function () {
  */
 add_action('widgets_init', function () {
   $config = [
-    'before_widget' => '<section class="widget %1$s %2$s">',
-    'after_widget'  => '</section>',
+    'before_widget' => '<div class="widget %1$s %2$s">',
+    'after_widget'  => '</div>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
   ];
+
   register_sidebar([
-    'name'          => __('Primary', 'sage'),
-    'id'            => 'sidebar-primary'
+    'name'          => __('Sidebar with a contact', 'sage'),
+    'id'            => 'sidebar-with-contact'
   ] + $config);
+
   register_sidebar([
-    'name'          => __('Footer', 'sage'),
-    'id'            => 'sidebar-footer'
+    'name'          => __('Sidebar with billing information', 'sage'),
+    'id'            => 'sidebar-with-billing'
+  ] + $config);
+
+  register_sidebar([
+    'name'          => __('Sidebar with documents', 'sage'),
+    'id'            => 'sidebar-with-documents'
   ] + $config);
 });
 
@@ -141,4 +148,6 @@ add_action('after_setup_theme', function () {
   sage('blade')->compiler()->directive('asset', function ($asset) {
     return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
   });
+
+  load_theme_textdomain('sage', get_template_directory() . '/resources/lang');
 });

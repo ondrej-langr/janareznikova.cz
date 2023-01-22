@@ -2,9 +2,11 @@ version: '3'
 
 services:
   wordpress:
-    image: wordpress:latest
+    build: .
     volumes:
       - ./:/var/www/html/wp-content/themes/janareznikova.cz
+      - ../wp-plugins:/var/www/html/wp-content/plugins
+      - ../wp-uploads:/var/www/html/wp-content/uploads
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: example
