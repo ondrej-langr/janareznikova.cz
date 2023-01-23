@@ -10,3 +10,6 @@ resources/assets/config-local.json
 .env
 .DS_Store
 wp-plugins
+wp-includes
+wp-content
+wp-admin

@@ -41,10 +41,9 @@
     "php": ">=7.1",
     "composer/installers": "~1.0",
     "illuminate/support": "8.83.*",
-    "soberwp/controller": "~2.1.0",
     "vlucas/phpdotenv": "^5.3",
     "oscarotero/env": "^2.1",
-    "roots/sage": "^10.4"
+    "roots/acorn": "^2.1"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "^2.8.0"

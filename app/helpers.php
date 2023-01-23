@@ -2,7 +2,9 @@
 
 namespace App;
 
-use Roots\Sage\Container;
+use Illuminate\Container\Container;
+
+use function Roots\view;
 
 /**
  * Get the sage container.
@@ -12,11 +14,14 @@ use Roots\Sage\Container;
  * @param Container $container
  * @return Container|mixed
  */
-function sage($abstract = null, $parameters = [], Container $container = null) {
+function sage($abstract = null, $parameters = [], $container = null)
+{
   $container = $container ?: Container::getInstance();
+
   if (!$abstract) {
     return $container;
   }
+
   return $container->bound($abstract)
     ? $container->makeWith($abstract, $parameters)
     : $container->makeWith("sage.{$abstract}", $parameters);
@@ -33,7 +38,8 @@ function sage($abstract = null, $parameters = [], Container $container = null) {
  * @copyright Taylor Otwell
  * @link https://github.com/laravel/framework/blob/c0970285/src/Illuminate/Foundation/helpers.php#L254-L265
  */
-function config($key = null, $default = null) {
+function config($key = null, $default = null)
+{
   if (is_null($key)) {
     return sage('config');
   }
@@ -48,8 +54,9 @@ function config($key = null, $default = null) {
  * @param array $data
  * @return string
  */
-function template($file, $data = []) {
-  return sage('blade')->render($file, $data);
+function template($file, $data = [])
+{
+  return sage('view')->render($file, $data);
 }
 
 /**
@@ -58,23 +65,26 @@ function template($file, $data = []) {
  * @param array $data
  * @return string
  */
-function template_path($file, $data = []) {
-  return sage('blade')->compiledPath($file, $data);
+function template_path($file, $data = [])
+{
+  return sage('view')->compiledPath($file, $data);
 }
 
 /**
  * @param $asset
  * @return string
  */
-function asset_path($asset) {
-  return sage('assets')->getUri($asset);
+function asset_path($asset)
+{
+  return sage('assets')->uri($asset);
 }
 
 /**
  * @param string|string[] $templates Possible template files
  * @return array
  */
-function filter_templates($templates) {
+function filter_templates($templates)
+{
   $paths = apply_filters('sage/filter_templates/paths', [
     'views',
     'resources/views'
@@ -115,7 +125,8 @@ function filter_templates($templates) {
  * @param string|string[] $templates Relative path to possible template files
  * @return string Location of the template
  */
-function locate_template($templates) {
+function locate_template($templates)
+{
   return \locate_template(filter_templates($templates));
 }
 
@@ -123,7 +134,8 @@ function locate_template($templates) {
  * Determine whether to show the sidebar
  * @return bool
  */
-function display_sidebar() {
+function display_sidebar()
+{
   static $display;
   isset($display) || $display = apply_filters('sage/display_sidebar', false);
   return $display;

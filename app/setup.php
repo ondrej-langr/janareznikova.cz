@@ -3,11 +3,11 @@
 namespace App;
 
 use App\Classes\Vite;
-use Roots\Sage\Container;
-use Roots\Sage\Assets\JsonManifest;
-use Roots\Sage\Template\Blade;
-use Roots\Sage\Template\BladeProvider;
+use Roots\Acorn\Assets\Asset\JsonAsset;
+use Roots\Acorn\View\ViewServiceProvider;
 use Dotenv\Dotenv;
+use Illuminate\Contracts\View\Factory as ViewFactory;
+use Illuminate\Container\Container;
 
 $root_dir = dirname(__DIR__, 1);
 /**
@@ -23,10 +23,6 @@ if (file_exists($root_dir . '/.env')) {
  */
 add_action('wp_enqueue_scripts', function () {
   Vite::useVite();
-
-  if (is_single() && comments_open() && get_option('thread_comments')) {
-    wp_enqueue_script('comment-reply');
-  }
 }, 100);
 
 /**
@@ -116,7 +112,7 @@ add_action('widgets_init', function () {
  * Note: updated value is only available for subsequently loaded views, such as partials
  */
 add_action('the_post', function ($post) {
-  sage('blade')->share('post', $post);
+  sage('view')->share('post', $post);
 });
 
 /**
@@ -127,7 +123,7 @@ add_action('after_setup_theme', function () {
    * Add JsonManifest to Sage container
    */
   sage()->singleton('sage.assets', function () {
-    return new JsonManifest(config('assets.manifest'), config('assets.uri'));
+    return new JsonAsset(config('assets.manifest'), config('assets.uri'));
   });
 
   /**
@@ -138,8 +134,8 @@ add_action('after_setup_theme', function () {
     if (!file_exists($cachePath)) {
       wp_mkdir_p($cachePath);
     }
-    (new BladeProvider($app))->register();
-    return new Blade($app['view']);
+    (new ViewServiceProvider($app))->register();
+    return new ViewFactory($app['view']);
   });
 
   /**

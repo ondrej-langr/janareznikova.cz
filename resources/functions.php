@@ -4,8 +4,8 @@
  * Do not edit anything in this file unless you know what you're doing
  */
 
-use Roots\Sage\Config;
-use Roots\Sage\Container;
+use Illuminate\Config\Repository;
+use Illuminate\Container\Container;
 
 /**
  * Helper function for prettying up errors
@@ -37,15 +37,14 @@ if (version_compare('4.7.0', get_bloginfo('version'), '>=')) {
 /**
  * Ensure dependencies are loaded
  */
-if (!class_exists('Roots\\Sage\\Container')) {
-  if (!file_exists($composer = __DIR__ . '/../vendor/autoload.php')) {
-    $sage_error(
-      __('You must run <code>composer install</code> from the Sage directory.', 'sage'),
-      __('Autoloader not found.', 'sage')
-    );
-  }
-  require_once $composer;
+if (!file_exists($composer = __DIR__ . '/../vendor/autoload.php')) {
+  echo __DIR__ . '../vendor/autoload.php';
+
+  wp_die(__('Error locating autoloader. Please run <code>composer install</code>.', 'sage'));
 }
+
+require $composer;
+
 
 /**
  * Sage required files
@@ -82,9 +81,10 @@ array_map(
   ['theme_file_path', 'theme_file_uri', 'parent_theme_file_path', 'parent_theme_file_uri'],
   array_fill(0, 4, 'dirname')
 );
+
 Container::getInstance()
   ->bindIf('config', function () {
-    return new Config([
+    return new Repository([
       'assets' => require dirname(__DIR__) . '/config/assets.php',
       'theme' => require dirname(__DIR__) . '/config/theme.php',
       'view' => require dirname(__DIR__) . '/config/view.php',
