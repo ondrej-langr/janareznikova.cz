@@ -12,7 +12,7 @@
                 $section = get_field('hero_banner_slider');
                 $title = $section["title"];
                 $description = $section["description"];
-                $images = acf_photo_gallery('images', $post->ID);
+                $images = acf_photo_gallery('images', get_the_ID());
               @endphp
               {{-- carousel --}}
               <div class="absolute top-0 left-0 w-full h-full overflow-hidden">
@@ -200,7 +200,7 @@
                         @while ($query->have_posts())
                           @php
                               $query->the_post();
-                              $items = acf_photo_gallery('images', $post->ID);
+                              $items = acf_photo_gallery('images', $args['p']);
                           @endphp
                           @foreach ($items as $item)
                             @php
