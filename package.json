@@ -1,29 +1,11 @@
 {
   "name": "sage-vite",
-  "version": "9.0.9",
-  "authors": [
-    "Roots <team@roots.io>",
-    "Matt Dickey <mdickey46@gmail.com>"
-  ],
-  "homepage": "https://roots.io/sage/",
+  "version": "0.0.0",
   "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/8bit-echo/sage-starter.git"
-  },
-  "bugs": {
-    "url": "https://github.com/8bit-echo/sage-starter/issues"
-  },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
   "scripts": {
     "dev": "yarn env:dev && cross-env APP_ENV=development vite",
-    "build": "yarn env:prod && cross-env APP_ENV=production vite build",
-    "env:dev": "replace-in-files --string='production' --replacement='development' ./.env",
+    "build": "npm run env:prod && npx cross-env APP_ENV=production vite build",
+    "env:dev": "npx replace-in-files --string='production' --replacement='development' ./.env",
     "pot": "node ./scripts/syncPotFile.mjs",
     "env:prod": "replace-in-files --string='development' --replacement='production' ./.env"
   },
