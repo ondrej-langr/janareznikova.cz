@@ -2,7 +2,7 @@
 
 namespace App;
 
-use App\Controllers\App;
+use App\Controllers\AppController;
 
 /**
  * Add <body> classes
@@ -90,7 +90,7 @@ add_filter('comments_template', function ($comments_template) {
 add_filter('script_loader_tag', function ($tag, $handle) {
   if (str_contains($handle, 'module/sage/')) {
     $str = "type='module'";
-    $str .= App::isDev() ? ' crossorigin' : '';
+    $str .= AppController::isDev() ? ' crossorigin' : '';
     $tag = str_replace("type='text/javascript'", $str, $tag);
   }
   return $tag;

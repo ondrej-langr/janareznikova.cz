@@ -9,7 +9,7 @@
   @scroll.window.debounce.150ms="disapearAfter ? (isActive=window.scrollY >= disapearAfter) : null"
 >
     <nav class="max-w-7xl px-5 mx-auto">
-      {!! App::custom_logo() !!}
+      {!! \App\Controllers\AppController::custom_logo() !!}
       @if (has_nav_menu('primary_navigation')) {!! wp_nav_menu(['theme_location' => 'primary_navigation']) !!}
       @endif
     </nav>

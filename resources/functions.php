@@ -1,11 +1,6 @@
 <?php
 
-/**
- * Do not edit anything in this file unless you know what you're doing
- */
-
-use Illuminate\Config\Repository;
-use Illuminate\Container\Container;
+use Roots;
 
 /**
  * Helper function for prettying up errors
@@ -21,20 +16,6 @@ $sage_error = function ($message, $subtitle = '', $title = '') {
 };
 
 /**
- * Ensure compatible version of PHP is used
- */
-if (version_compare('7.1', phpversion(), '>=')) {
-  $sage_error(__('You must be using PHP 7.1 or greater.', 'sage'), __('Invalid PHP version', 'sage'));
-}
-
-/**
- * Ensure compatible version of WordPress is used
- */
-if (version_compare('4.7.0', get_bloginfo('version'), '>=')) {
-  $sage_error(__('You must be using WordPress 4.7.0 or greater.', 'sage'), __('Invalid WordPress version', 'sage'));
-}
-
-/**
  * Ensure dependencies are loaded
  */
 if (!file_exists($composer = __DIR__ . '/../vendor/autoload.php')) {
@@ -45,6 +26,19 @@ if (!file_exists($composer = __DIR__ . '/../vendor/autoload.php')) {
 
 require $composer;
 
+
+try {
+  \Roots\bootloader();
+} catch (Throwable $e) {
+  wp_die(
+    __('You need to install Acorn to use this theme.', 'sage'),
+    '',
+    [
+      'link_url' => 'https://docs.roots.io/acorn/2.x/installation/',
+      'link_text' => __('Acorn Docs: Installation', 'sage'),
+    ]
+  );
+}
 
 /**
  * Sage required files
@@ -82,14 +76,14 @@ array_map(
   array_fill(0, 4, 'dirname')
 );
 
-Container::getInstance()
-  ->bindIf('config', function () {
-    return new Repository([
-      'assets' => require dirname(__DIR__) . '/config/assets.php',
-      'theme' => require dirname(__DIR__) . '/config/theme.php',
-      'view' => require dirname(__DIR__) . '/config/view.php',
-    ]);
-  }, true);
+// \app()::getInstance()
+//   ->bindIf('config', function () {
+//     return new Illuminate\Config\Repository([
+//       'assets' => require dirname(__DIR__) . '/config/assets.php',
+//       'theme' => require dirname(__DIR__) . '/config/theme.php',
+//       'view' => require dirname(__DIR__) . '/config/view.php',
+//     ]);
+//   }, true);
 
 include __DIR__ . '/functions-default.php';
 include __DIR__ . '/functions-app.php';

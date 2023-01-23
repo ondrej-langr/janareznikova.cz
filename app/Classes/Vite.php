@@ -2,16 +2,16 @@
 // Adapted from https://github.com/andrefelipe/vite-php-setup/blob/master/public/helpers.php
 namespace App\Classes;
 
-use App\Controllers\App;
+use App\Controllers\AppController;
 
-define('IS_DEVELOPMENT', App::isDev());
+define('IS_DEVELOPMENT', AppController::isDev());
 
 class Vite
 {
 
   public static function base_path()
   {
-    return "/wp-content/themes/" . App::theme_name() . "/dist/";
+    return "/wp-content/themes/" . AppController::theme_name() . "/dist/";
   }
 
   public static function useVite(string $script = 'main.ts')
@@ -80,7 +80,7 @@ class Vite
 
   private static function getManifest(): array
   {
-    $content = file_get_contents(get_theme_root() . '/' . App::theme_name() . '/dist/manifest.json');
+    $content = file_get_contents(get_theme_root() . '/' . AppController::theme_name() . '/dist/manifest.json');
 
     return json_decode($content, true);
   }

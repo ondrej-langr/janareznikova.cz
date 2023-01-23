@@ -4,10 +4,8 @@ namespace App;
 
 use App\Classes\Vite;
 use Roots\Acorn\Assets\Asset\JsonAsset;
-use Roots\Acorn\View\ViewServiceProvider;
 use Dotenv\Dotenv;
 use Illuminate\Contracts\View\Factory as ViewFactory;
-use Illuminate\Container\Container;
 
 $root_dir = dirname(__DIR__, 1);
 /**
@@ -112,7 +110,7 @@ add_action('widgets_init', function () {
  * Note: updated value is only available for subsequently loaded views, such as partials
  */
 add_action('the_post', function ($post) {
-  sage('view')->share('post', $post);
+  \app(ViewFactory::class)->share('post', $post);
 });
 
 /**
@@ -122,27 +120,8 @@ add_action('after_setup_theme', function () {
   /**
    * Add JsonManifest to Sage container
    */
-  sage()->singleton('sage.assets', function () {
+  \app()->singleton('sage.assets', function () {
     return new JsonAsset(config('assets.manifest'), config('assets.uri'));
-  });
-
-  /**
-   * Add Blade to Sage container
-   */
-  sage()->singleton('sage.blade', function (Container $app) {
-    $cachePath = config('view.compiled');
-    if (!file_exists($cachePath)) {
-      wp_mkdir_p($cachePath);
-    }
-    (new ViewServiceProvider($app))->register();
-    return new ViewFactory($app['view']);
-  });
-
-  /**
-   * Create @asset() Blade directive
-   */
-  sage('blade')->compiler()->directive('asset', function ($asset) {
-    return "<?= " . __NAMESPACE__ . "\\asset_path({$asset}); ?>";
   });
 
   load_theme_textdomain('sage', get_template_directory() . '/resources/lang');

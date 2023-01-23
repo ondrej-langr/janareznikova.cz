@@ -2,30 +2,7 @@
 
 namespace App;
 
-use Illuminate\Container\Container;
-
 use function Roots\view;
-
-/**
- * Get the sage container.
- *
- * @param string $abstract
- * @param array  $parameters
- * @param Container $container
- * @return Container|mixed
- */
-function sage($abstract = null, $parameters = [], $container = null)
-{
-  $container = $container ?: Container::getInstance();
-
-  if (!$abstract) {
-    return $container;
-  }
-
-  return $container->bound($abstract)
-    ? $container->makeWith($abstract, $parameters)
-    : $container->makeWith("sage.{$abstract}", $parameters);
-}
 
 /**
  * Get / set the specified configuration value.
@@ -41,12 +18,12 @@ function sage($abstract = null, $parameters = [], $container = null)
 function config($key = null, $default = null)
 {
   if (is_null($key)) {
-    return sage('config');
+    return \app('config');
   }
   if (is_array($key)) {
-    return sage('config')->set($key);
+    return \app('config')->set($key);
   }
-  return sage('config')->get($key, $default);
+  return \app('config')->get($key, $default);
 }
 
 /**
@@ -56,18 +33,7 @@ function config($key = null, $default = null)
  */
 function template($file, $data = [])
 {
-  return sage('view')->render($file, $data);
-}
-
-/**
- * Retrieve path to a compiled blade view
- * @param $file
- * @param array $data
- * @return string
- */
-function template_path($file, $data = [])
-{
-  return sage('view')->compiledPath($file, $data);
+  return \view($file, $data);
 }
 
 /**
@@ -76,7 +42,7 @@ function template_path($file, $data = [])
  */
 function asset_path($asset)
 {
-  return sage('assets')->uri($asset);
+  return \app('sage.assets')->uri($asset);
 }
 
 /**

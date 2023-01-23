@@ -4,9 +4,9 @@ services:
   wordpress:
     build: .
     volumes:
-      - ./:/var/www/html/wp-content/themes/janareznikova.cz
-      - ../wp-plugins:/var/www/html/wp-content/plugins
-      - ../wp-uploads:/var/www/html/wp-content/uploads
+      - ./:/usr/src/wordpress/wp-content/themes/janareznikova.cz
+      - ../wp-plugins:/usr/src/wordpress/wp-content/plugins
+      - ../wp-uploads:/usr/src/wordpress/wp-content/uploads
     environment:
       WORDPRESS_DB_HOST: db
       WORDPRESS_DB_USER: example
