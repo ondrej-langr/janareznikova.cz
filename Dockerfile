@@ -6,6 +6,14 @@ COPY ./ ./
 RUN npm install
 RUN npm run build
 
+# Build Wordpress plugins
+FROM wordpress:cli-2.7.1-php8.0 AS wordpressBuilder
+
+WORKDIR /build-content
+
+COPY ./scripts/install-plugins.sh ./install-plugins.sh
+RUN ./install-plugins.sh
+
 # Build PHP
 FROM composer:latest AS phpBuilder
 
@@ -24,4 +32,3 @@ RUN set -eux; \
 COPY ./ ./wp-content/themes/janareznikova.cz/
 COPY --from=phpBuilder /build-content/vendor ./wp-content/themes/janareznikova.cz/vendor
 COPY --from=nodeBuilder /build-content/dist ./wp-content/themes/janareznikova.cz/dist
-
