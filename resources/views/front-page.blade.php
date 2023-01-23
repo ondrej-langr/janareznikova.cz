@@ -75,7 +75,7 @@
                 <div class="flex-none w-full md:max-w-[540px] aspect-square relative mt-10 sm:mt-0">
                     @php
                         $image_size = 'main-page-about-me-section-image';
-                        $imageContent = wp_get_attachment_image($image['ID'], $image_size, false);
+                        $imageContent = wp_get_attachment_image($image['ID'], $image_size, false, ['class' => 'absolute left-0 top-0 w-full h-full object-cover']);
                     @endphp
 
                     {!! $imageContent !!}
