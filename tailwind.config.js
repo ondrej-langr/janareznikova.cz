@@ -43,7 +43,7 @@ module.exports = {
     {
       handler({ addComponents, addBase, theme }) {
         const sectionPaddingDesktopSize = theme('spacing.32');
-        const sectionPaddingSize = theme('spacing.20');
+        const sectionPaddingSize = theme('spacing.16');
 
         addBase({
           body: {
@@ -80,32 +80,64 @@ module.exports = {
             left: 0,
             width: '100%',
             zIndex: 20,
-            nav: {
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              '.custom-logo': {
+            '.custom-logo': {
+              width: 180,
+              marginTop: '10px',
+              height: 'auto',
+              position: 'relative',
+
+              '@media (min-width: 690px)': {
                 width: 250,
-                height: 'auto',
               },
+            },
+            nav: {
+              display: 'none',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              backgroundColor: 'white',
+
+              '&[data-open="true"]': {
+                display: 'flex',
+              },
+
               '.menu-hlavni-menu-container': {
                 ul: {
                   display: 'flex',
                   textTransform: 'uppercase',
                   gap: '30px',
-                  fontSize: '1.1rem',
-                  color: 'white',
+                  fontSize: '1.8rem',
+                  flexFlow: 'column',
+                  textAlign: 'center',
 
                   a: {
                     '&:hover': {
                       textDecoration: 'underline',
                     },
                   },
+
+                  '@media (min-width: 768px)': {
+                    flexFlow: 'row',
+                    textAlign: 'right',
+                    fontSize: '1.1rem',
+                  },
                 },
+              },
+
+              '@media (min-width: 768px)': {
+                position: 'relative',
+                display: 'flex',
+                width: 'auto',
+                justifyContent: 'space-between',
+                backgroundColor: 'transparent',
               },
             },
 
-            '@media and screen (min-width: 690px)': {
+            '@media (min-width: 690px)': {
               padding: '20px 0px',
             },
           },
@@ -135,7 +167,7 @@ module.exports = {
                 },
               },
             },
-            '@media and screen (min-width: 690px)': {
+            '@media (min-width: 690px)': {
               padding: '120px 0',
             },
           },
@@ -146,7 +178,7 @@ module.exports = {
               backgroundColor: theme('colors.site.blue'),
             },
 
-            '@media and screen (min-width: 690px)': {
+            '@media (min-width: 690px)': {
               padding: `${sectionPaddingDesktopSize} 0`,
             },
           },
@@ -154,14 +186,14 @@ module.exports = {
             'h1,h2': {
               fontSize: '1.8rem',
               marginBottom: '1.5rem',
-              '@media and screen (min-width: 690px)': {
+              '@media (min-width: 690px)': {
                 fontSize: '2.375rem',
               },
             },
             'h3,h4,h5': {
               fontSize: '1.2rem',
               marginBottom: '1rem',
-              '@media and screen (min-width: 690px)': {
+              '@media (min-width: 690px)': {
                 fontSize: '1.8rem',
               },
             },
@@ -192,6 +224,15 @@ module.exports = {
             '&.dark': {
               'p, li': {
                 color: theme('colors.site.tonic'),
+              },
+            },
+          },
+          '.keen-slider': {
+            '&__slide': {
+              transition: 'padding 200ms ease-in, opacity 200ms ease-in,',
+              '&:not(.active)': {
+                padding: '2.5rem 1.4rem',
+                opacity: 0.6,
               },
             },
           },
