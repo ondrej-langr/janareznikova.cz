@@ -135,17 +135,18 @@
                         'posts_per_page' => 999,
                     ];
                     $query = new WP_Query($args);
+                    $numberOfPosts = $query->found_posts;
+                    $numberOfPostsMax = 7;
                 @endphp
                 {{-- Content --}}
-                <div class="container">
+                <div class="container" x-data="{ isOpen: false }">
                     <h3 class="text-black text-4xl text-center uppercase">{{ $title }}</h3>
-                    <div class="divide-y-2 space-y-2 mt-9 typography">
+                    <div class="divide-y-2 space-y-2 mt-9 typography" :class="!isOpen ? '[&>*:nth-child(n+8)]:hidden' : ''">
                         @if ($query->have_posts())
                             @while ($query->have_posts())
                                 @php
                                     $query->the_post();
                                 @endphp
-
                                 <article x-data="dropdown()" class="">
                                     <div x-on:click="toggle"
                                         class="py-4 sm:py-7 group cursor-pointer flex justify-between items-center">
@@ -172,6 +173,14 @@
                             <p>Zatím žádné položky</p>
                         @endif
                     </div>
+                    @if ($numberOfPosts > $numberOfPostsMax)
+                      <button class="mx-auto flex items-center p-3 hover:bg-blue-50 rounded-lg hover:shadow-sm duration-150" @click="isOpen = !isOpen" >
+                        <span class="uppercase font-semibold mr-2" x-html="!isOpen ? 'Zobrazit více' : 'Zobrazit méně'"></span>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                        </svg>
+                      </button>
+                    @endif
                 </div>
                 {{-- Cleanup --}}
                 @php
