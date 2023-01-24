@@ -204,9 +204,9 @@
                           @endphp
                           @foreach ($items as $item)
                             @php
-                                $imageContent = wp_get_attachment_image($image['id'], "large", false, ['class' => 'absolute left-0 top-0 w-full h-full object-cover']);
+                                $imageContent = wp_get_attachment_image($item['id'], "large", false, ['class' => 'absolute left-0 top-0 w-full h-full object-cover']);
                             @endphp
-                            <div data-index="{{ $loop->index }}" class="relative flex-none w-full sm:w-[33.33%] keen-slider__slide">
+                            <div data-image-id="{{ $item['id'] }}" data-index="{{ $loop->index }}" class="relative flex-none w-full sm:w-[33.33%] keen-slider__slide">
                               <div class="relative w-full h-full flex items-center justify-center aspect-square">
                                 {!! $imageContent  !!}
                               </div>
