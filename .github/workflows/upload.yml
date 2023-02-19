@@ -1,0 +1,44 @@
+name: 🚀 Build and Deploy website template
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  web-deploy:
+    name: 🎉 Build and Deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v2
+
+      - name: 🚚 Prepare node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+          cache: 'npm'
+
+      - id: install-npm
+        run: npm ci
+
+      - id: build-project
+        name: 📦 Build for production
+        run: npm run build
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ftpx.forpsi.com
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          server-dir: www/wp-content/themes/janareznikova.cz/
+          exclude: "
+            - **/node_modules/**
+            - **/dev/**
+            - **/.git*/**
+            - /dev/**
+            - .vscode/**
+            - upload-with-ftp.*
+            "
