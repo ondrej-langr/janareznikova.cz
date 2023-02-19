@@ -87,7 +87,7 @@ module.exports = {
               position: 'relative',
 
               '@media (min-width: 690px)': {
-                width: 250,
+                width: 300,
               },
             },
             nav: {
