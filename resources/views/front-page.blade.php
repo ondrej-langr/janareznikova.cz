@@ -14,15 +14,6 @@
               {{-- carousel --}}
               {!! wp_get_attachment_image($section['background_image'], "large", false, ['class' => 'absolute left-0 top-0 w-full h-full object-cover']) !!}
               <div class="absolute top-0 left-0 w-full h-full bg-black opacity-60">/</div>
-
-              {{-- Navigation --}}
-              <div class="relative mx-auto flex pb-10 justify-center">
-                @foreach ($images as $image)
-                  <button @click="slider.moveToIdx({{ $loop->index }})" class="p-2 group">
-                    <div class="h-1 bg-white duration-200" :class="currentIndex === {{ $loop->index }} ? 'w-20' : 'w-12 group-hover:scale-x-110 opacity-40'"></div>
-                  </button>
-                @endforeach
-              </div>
             </section>
 
             <section class="md:flex py-14 container" id="o-mne">
