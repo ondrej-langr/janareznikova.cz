@@ -7,49 +7,13 @@
         <article class="page-content content">
             @php the_content() @endphp
 
-            <section id="uvod" class="min-h-[70vh] relative flex flex-col page-header"  x-data="fullscreenSlider">
+            <section id="uvod" class="min-h-[40vh] relative flex flex-col page-header"  x-data="fullscreenSlider">
               @php
                 $section = get_field('hero_banner_slider');
-                $title = $section["title"];
-                $description = $section["description"];
-                $images = acf_photo_gallery('images', get_the_ID());
               @endphp
               {{-- carousel --}}
-              <div class="!absolute top-0 left-0 w-full h-full overflow-hidden fader" x-ref="root">
-                @foreach (array_reverse($images) as $image)
-                  @php
-                      $imageContent = wp_get_attachment_image($image['id'], "large", false, ['class' => 'absolute left-0 top-0 w-full h-full object-cover']);
-                  @endphp
-                  <div class="fader__slide keen-slider__slide">
-                    {!! $imageContent !!}
-                  </div>
-                @endforeach
-              </div>
+              {!! wp_get_attachment_image($section['background_image'], "large", false, ['class' => 'absolute left-0 top-0 w-full h-full object-cover']) !!}
               <div class="absolute top-0 left-0 w-full h-full bg-black opacity-60">/</div>
-
-              {{-- Text --}}
-              <div class="pb-24 pt-40 md:pb-40 relative my-auto flex justify-between text-white">
-                <button @click="slider.prev()" class="mx-5 group hidden sm:block hover:scale-110 active:scale-95 duration-200">
-                  <div class="border-2 border-white p-4 rounded-full duration-150 group-hover:bg-white group-hover:text-black group-active:bg-white group-active:text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
-                    </svg>
-                  </div>
-                </button>
-
-                <div class="text-center mx-5">
-                  <h1 class="text-4xl uppercase font-semibold">{{ $title }}</h1>
-                  <p class="mt-8 leading-9 text-lg max-w-4xl mx-auto">{{ $description }}</p>
-                </div>
-
-                <button @click="slider.next()" class="mx-5 group hidden sm:block hover:scale-110 active:scale-95 duration-200">
-                  <div class="border-2 border-white p-4 rounded-full duration-150 group-hover:bg-white group-hover:text-black group-active:bg-white group-active:text-black">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                    </svg>
-                  </div>
-                </button>
-              </div>
 
               {{-- Navigation --}}
               <div class="relative mx-auto flex pb-10 justify-center">
@@ -75,10 +39,9 @@
                 <div class="flex-none w-full md:max-w-[540px] aspect-square relative mt-10 sm:mt-0">
                     @php
                         $image_size = 'main-page-about-me-section-image';
-                        $imageContent = wp_get_attachment_image($image['ID'], $image_size, false, ['class' => 'absolute left-0 top-0 w-full h-full object-cover']);
                     @endphp
 
-                    {!! $imageContent !!}
+                    {!! wp_get_attachment_image($image['ID'], $image_size, false, ['class' => 'absolute left-0 top-0 w-full h-full object-cover']) !!}
                 </div>
             </section>
 

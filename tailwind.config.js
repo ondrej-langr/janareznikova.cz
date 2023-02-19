@@ -87,6 +87,7 @@ module.exports = {
               position: 'relative',
 
               '@media (min-width: 690px)': {
+                marginTop: 0,
                 width: 300,
               },
             },
