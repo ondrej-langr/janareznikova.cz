@@ -28,10 +28,9 @@ jobs:
         run: npm run build
 
       - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        uses: SamKirkland/FTP-Deploy-Action@4.1.0
         with:
           server: ftpx.forpsi.com
-          protocol: ftps
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           server-dir: www/wp-content/themes/janareznikova.cz/
